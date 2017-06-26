@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -14,7 +14,7 @@
 	<!--google font file-->
 
 	<!--local css file-->
-	<link rel = "stylesheet" type = "text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type = "text/css" href="assets/style.css">
 	<!--favicon-->
 	<link rel="icon" type="image/png" href="assets/images/favicon.ico">
 	<!--viewport-->
@@ -30,7 +30,7 @@
   		<div class="container">
     	
     	<h1>Dynamic Gif time!</h1>
-
+		<p>Click the submit button to search for animal gifs</p>
   		</div>
 	</div>
 
@@ -44,20 +44,17 @@
 
 		</div><!--closes the animalButtons div-->
 
-
-
 		<!--form id for the animalbuttons-->
+			<form id="animalForm">
+			<label for="animalInput">Add an Animal Here</label>
+			<input type="text" id="animalInput"><br>
 
+			<input id="addAnimal" type="submit" value="submit">
 
 		<!--empty div for animal gifs to appear-->
+			<div id="animalDisplay">
 
-
-
-
-
-
-
-
+			</div>
 
 
 	</div><!--ends the fluid contianer of the body-->
