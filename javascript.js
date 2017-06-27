@@ -11,7 +11,6 @@
 5. the user can add more buttons by using the "submit" button and a new animal button is created next to the others 
 
 
-
 //COMPUTER-SIDE (ajax call other notes from readme!)
 
 1.contain some present cue buttons? when the page is loaded
@@ -29,7 +28,7 @@ http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC
 
 
 //variable names with comments 
-var animalsArray = ["cat", "dog", "mouse", "frog"];
+var topicsArray = ["cat", "dog", "mouse", "frog"];
 
 //data types here?
 //the text the user types in for the animal 
@@ -41,26 +40,30 @@ var addAnimalButton = "";
 //function names with comments
 //this function will make a button element for the value that the user entered 
 function displayButtons(){
-	//sets a variable called button and button element
-	var button = $("<button type='button' class='btn btn-secondary'>");
+	//empty the div before adding new buttons 
+	$("#animalButtons").empty();
+
 	//loops through every animal in the array and adds the button element to the page 
-	for(var i=0 ; i< animalsArray.length; i++){
-	//adds the button element to the div that contains all of the animal buttons
-	$("#animalButtons").append(button);
+	for(var i=0 ; i< topicsArray.length; i++){
+			//sets a variable called button and button element
+			var button = $("<button>");
+			button.addClass("btn");
+			//provides the button's text info for the animal 
+			button.text(topicsArray[i]);
+			//adds the button element to the div that contains all of the animal buttons
+			$("#animalButtons").append(button);
 	}
 }
 
-
-//this function will add the new animal from the user
+//this function will add the new animal from the user from the inputbox
 function addNewAnimal(){
 	//adding a new animal name to the animalsArray and remove extra spacing  
  	var newAnimal = $("#animalInput").val().trim();
+ 	//alert(newAnimal);
  	//add the animal name from the textbox to the animal array 
- 	animalsArray.push(newAnimal);
-
+ 	topicsArray.push(newAnimal);
 }
 
-//need to check the rating?
 
 //this function will add the gifs from the API to the display area on the page
 function displayAnimalgifs(){
@@ -69,31 +72,10 @@ function displayAnimalgifs(){
 
 }
 
+//this function will grab 10 static gif from the giphy api 
+function getGifs(){
 
-//JSON response/data key 
-//data embed_url for the gif?
-
-//events and flow 
-$(document).ready(displayButtons());
-
-$("#addAnimal").on("click", function(event){
-
-	//keeps the submit button from trying to fully submit the form here
-	event.preventDefault();
-	//makes the buttons appear for animals in the array
-	addNewAnimal();
-}
-
-	)
-
-
-
-//limit API search to 10
- // Example queryURL for Giphy API
-//capturing the animal button value?
-var animal = $(this).attr("animalInput");
-
- //test the link in the browser? limit this to 10
+//test the link in the browser? limit this to 10
     var queryURL = "https://api.giphy.com/v1/gifs/search?" + "&api_key=dc6zaTOxFJmzC&limit=10";
 
     $.ajax({
@@ -105,6 +87,8 @@ var animal = $(this).attr("animalInput");
       var gifResults = response.data;
       	//loop through the resturned results
       	for (var i=0; i< gifResults.length; i++){
+		//check to see if the image's rating is SFW 
+            if (results[i].rating !== "r" && results[i].rating !== "pg-13"){ 
 			  // Creating and storing a new div tag
             var animalDiv = $("<div>");
             // Creating a paragraph tag with the result item's rating
@@ -114,16 +98,42 @@ var animal = $(this).attr("animalInput");
             var animalImage = $("<img>");
             // Setting the src attribute of the image to a property pulled off the result item
             animalImage.attr("src", gifResults[i].images.fixed_height.url);
-
-
-
       	}
+    };
+
+}
 
 
 
 
-    });
 
+//CALLING FUNCTIONS AND EVENTS HERE!!!!
+//ready the page
+$(document).ready(displayButtons());
+//when the addAnimal button is clicked then do the following:
+
+$("#addAnimalButton").on("click", function(event){
+	//keep the submit button from trying to fully submit the form here
+	event.preventDefault();
+	//save the new animal info from the animalInput box
+	//add that new animal to the current animal array
+	//alert("addNewAnimal"); 
+	addNewAnimal();
+
+	//getGifd();	
+	//make the buttons appear for animals in the array
+	displayButtons();
+
+	//let the user click on a button and search the giphy api for that animal 
+});
+
+
+//limit API search to 10 gifs per search 
+ // Example queryURL for Giphy API
+//capturing the animal button value?
+/*var animal = $(this).attr("animalInput");
+
+ 
     //info to pause or animate a gif (from class notes) check values for giphy objects in console/documentation
     /* $(".gif").on("click", function() {
       // The attr jQuery method allows us to get or set the value of any attribute on our HTML element

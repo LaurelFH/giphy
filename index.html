@@ -37,18 +37,22 @@
 	<!--div to make the container fluid-->
 	<div class="container-fluid">	
 
-		<!--div which contains all of the animal buttons-->
-		<div id="animalButtons">
-
-
-		</div><!--closes the animalButtons div-->
+		<div class="row">
+			<div class="col-md-8">
+				<!--div which contains all of the animal buttons-->
+				<div id="animalButtons">
+			
+				</div><!--closes the animalButtons div-->
+			</div><!--closes the cols-->
 
 		<!--form id for the animalbuttons-->
-			<form id="animalForm">
-			<label for="animalInput">Add an Animal Here</label>
-			<input type="text" id="animalInput"><br>
-
-			<input id="addAnimalButton" type="submit" value="submit">
+			<div class="col-md-4">
+				<form id="animalForm">
+				<label for="animalInput">Add an Animal Here</label>
+				<input type="text" id="animalInput"><br>
+				<input id="addAnimalButton" type="submit" value="submit">
+			</div><!--closes the cols-->
+		</div><!--closes row 1-->
 
 		<!--empty div for animal gifs to appear-->
 			<div id="animalDisplay">
