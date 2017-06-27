@@ -1,31 +1,58 @@
-h1{
+h1, p {
+
+font-family: 'Fresca', sans-serif;
+}
 
 
+body{
 
+
+	background-image: url("../assets/grass.jpg");
+}
+
+.jumbotron{
+
+
+	background-color: #D46A6A;
+	padding-bottom: 0;
+	text-align: center;
 }
 
 #animalForm{
 
 	border: red 5px solid;
+	background-color: ##FFD1AA;
 
 }
 
 #animalDisplay{
 
 	border: blue 5px solid;
+	background-color: #D49A6A
+
 
 }
 
 #animalButtons{
 
 	border: yellow 5px solid;
+	text-align: center;
 }
 
 .btn {
 
 
 }
+/*.container-fluid*/
+
+
+
 .container-fluid{
+
+	/*background-color: #801515;*/
+	/*background-color: #D49A6A;*/
+	background-color: #FFD1AA;
+
 
 
 }
