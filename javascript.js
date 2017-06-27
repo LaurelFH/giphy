@@ -31,6 +31,9 @@ var animalInput = "";
 //the button value (submit) for the submit button 
 var addAnimalButton = "";
 
+var queryURL = "https://api.giphy.com/v1/gifs/search?&q="; 
+var apiKey = "&api_key=dc6zaTOxFJmzC&limit=10";
+
 
 //FUNCTION NAMES 
 
@@ -47,6 +50,8 @@ function displayButtons() {
         button.attr("id", topicsArray[i]);
         //provides the button's text info for the animal 
         button.text(topicsArray[i]);
+        //add the "name" data info here etc!!! this is a string 
+        button.attr("data-name", topicsArray[i]);
         //add the event to the button 
         button.on("click", function(event) {
             //https://stackoverflow.com/questions/48239/getting-the-id-of-the-element-that-fired-an-event
@@ -78,29 +83,25 @@ function displayAnimalgifs() {
 
 }
 
-/* STILL HAVE TROUBLE GETTING THE AJAX CALL TO WORK-- CAN GET THE JSON FILE, BUT THE INFO ISN'T QUITE MATCHING (CAN'T CONSOLE.LOG ETC)
+//STILL HAVE TROUBLE GETTING THE AJAX CALL TO WORK-- CAN GET THE JSON FILE, BUT THE INFO ISN'T QUITE MATCHING (CAN'T CONSOLE.LOG ETC)
 //this function will grab 10 static gif from the giphy api 
 function getGifs(searchQuery) {
-    //need to use this in this case?  
-   
-
-    //test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
-    var queryURL = "https://api.giphy.com/v1/gifs/search?" + "&q=" + searchQuery + "&api_key=dc6zaTOxFJmzC" +
-        +"&limit=10";
-
+      //test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
     //make an ajax request via the url above 
+
+       //add the "name" data info here etc!!! this is a string 
+      var name =  $(this).attr("data-name"); 
+      var gifResults = queryURL + name + apiKey;
+
+      
     $.ajax({
             url: queryURL,
             method: 'GET'
-            //dataType: "json",
-        })
+            })
         //once that data gets back console.log it for viewing 
         .done(function(response) {
             //see what matches up 
-            console.log(response.data);
-
-            var gifResults = response.data;
-            alert(gifResults);
+            console.log(response);
 
             //loop through the returned results
             for (var i = 0; i < gifResults.length; i++) {
@@ -127,11 +128,10 @@ function getGifs(searchQuery) {
                     animalDiv.append(animalImage);
                     $("#animalDisplay").prepend(animalDiv);
                 }
-            };
+            }
+        
+        });}
 
-        });
-
-*/
     //CALLING FUNCTIONS AND EVENTS HERE!!!!
     //ready the page
     $(document).ready(displayButtons());
@@ -145,7 +145,7 @@ function getGifs(searchQuery) {
         //alert("addNewAnimal"); 
         addNewAnimal();
 
-        //getGifs();  
+        getGifs();  
         //make the buttons appear for animals in the array
         displayButtons();
     });
