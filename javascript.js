@@ -48,10 +48,19 @@ function displayButtons(){
 			//sets a variable called button and button element
 			var button = $("<button>");
 			button.addClass("btn");
+			button.attr("id", topicsArray[i]);
 			//provides the button's text info for the animal 
 			button.text(topicsArray[i]);
+			//add the event to the button 
+			button.on("click", function(event){
+//https://stackoverflow.com/questions/48239/getting-the-id-of-the-element-that-fired-an-event
+			getGifs(event.target.id);
+				//alert(event.target.id);
+			});
 			//adds the button element to the div that contains all of the animal buttons
 			$("#animalButtons").append(button);
+			
+			
 	}
 }
 
@@ -73,40 +82,54 @@ function displayAnimalgifs(){
 }
 
 //this function will grab 10 static gif from the giphy api 
-function getGifs(){
+function getGifs(searchQuery){
 
-//test the link in the browser? limit this to 10
-    var queryURL = "https://api.giphy.com/v1/gifs/search?" + "&api_key=dc6zaTOxFJmzC&limit=10";
-
+//test the link in the browser? limit this to 10!
+    var queryURL = "https://api.giphy.com/v1/gifs/search?" + "&api_key=dc6zaTOxFJmzC" + 
+    "&q=" + searchQuery +"&limit=10";
+    
+    //make an ajax request via the url above 
     $.ajax({
       url: queryURL,
       method: 'GET'
-    }).done(function(response) {
-      console.log(response);
+      dataType: "json",
+    })
+    //once that data gets back console.log it for viewing 
+    .done(function(response) {
 
-      var gifResults = response.data;
-      	//loop through the resturned results
+    	//see what matches up 
+           console.log(response.data);
+           var gifResults = JSON.parse(json_text);
+
+/*	//store the info from the AJAX request in another results variable 
+      	var gifResults = response.data;
+
+      	//loop through the returned results
       	for (var i=0; i< gifResults.length; i++){
+		
 		//check to see if the image's rating is SFW 
             if (results[i].rating !== "r" && results[i].rating !== "pg-13"){ 
-			  // Creating and storing a new div tag
-            var animalDiv = $("<div>");
-            // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + gifResults[i].rating);
+			  	//Creating and storing a new div tag
+        	    var animalDiv = $("<div>");
+            	// Creating a paragraph tag with the result item's rating
+            	var p = $("<p>").text("Rating: " + gifResults[i].rating);
 
-            // Creating and storing an image tag
-            var animalImage = $("<img>");
-            // Setting the src attribute of the image to a property pulled off the result item
-            animalImage.attr("src", gifResults[i].images.fixed_height.url);
+            	// Creating and storing an image tag for the gif
+            	var animalImage = $("<img>");
+            	
+            	// Setting the src attribute of the image to a property pulled off the result item
+            	animalImage.attr("src", gifResults[i].images.fixed_height.url);
+
+             // Appending the paragraph and image tag to the animalDiv
+            	animalDiv.append(p);
+            	animalDiv.append(animalImage);
+            $("#animalDisplay").prepend(animalDiv);
       	}
     };
 
-}
+});
 
-
-
-
-
+*/
 //CALLING FUNCTIONS AND EVENTS HERE!!!!
 //ready the page
 $(document).ready(displayButtons());
@@ -120,11 +143,9 @@ $("#addAnimalButton").on("click", function(event){
 	//alert("addNewAnimal"); 
 	addNewAnimal();
 
-	//getGifd();	
+	//getGifs();	
 	//make the buttons appear for animals in the array
 	displayButtons();
-
-	//let the user click on a button and search the giphy api for that animal 
 });
 
 
