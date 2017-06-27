@@ -1,27 +1,39 @@
-h1, p {
+p {
 
 font-family: 'Fresca', sans-serif;
+color: white;
+text-shadow: 2px 2px #ff0000;
 }
 
 
 body{
 
 
-	background-image: url("../assets/grass.jpg");
+	background-image: url("../assets/grass2.jpg");
+	background-size: 100% auto;
+
 }
 
 .jumbotron{
 
 
-	background-color: #D46A6A;
+	/*background-color: #D46A6A;*/
+	background-color: #FFAAAA;
 	padding-bottom: 0;
 	text-align: center;
+	font-family: 'Fresca', sans-serif;
+	color: white; 
+	box-shadow: 0 3px 0 0 #A5C663;
+	text-shadow: 2px 2px #ff0000;
 }
 
 #animalForm{
 
 	border: red 5px solid;
-	background-color: ##FFD1AA;
+	/*background-color: #FFD1AA;*/
+	color: gray;
+	text-align: center;
+	padding: 20px;
 
 }
 
@@ -41,11 +53,22 @@ body{
 
 .btn {
 
+	box-shadow: 0 3px 0 0 #A5C663;
+	margin: 5px;
+	background: #D4EE9F;
+	margin-bottom: -3px;
+	margin-top: 3px;
+	color: gray;
+
 
 }
 /*.container-fluid*/
 
-
+#animalInput{
+	
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
 
 .container-fluid{
 

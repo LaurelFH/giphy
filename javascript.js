@@ -82,7 +82,7 @@ function displayAnimalgifs() {
 //this function will grab 10 static gif from the giphy api 
 function getGifs(searchQuery) {
     //need to use this in this case?  
-    //var animal = $(this).attr("");
+   
 
     //test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
     var queryURL = "https://api.giphy.com/v1/gifs/search?" + "&q=" + searchQuery + "&api_key=dc6zaTOxFJmzC" +
