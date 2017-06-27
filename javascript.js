@@ -59,8 +59,7 @@ function displayButtons(){
 			});
 			//adds the button element to the div that contains all of the animal buttons
 			$("#animalButtons").append(button);
-			
-			
+						
 	}
 }
 
@@ -92,21 +91,21 @@ function getGifs(searchQuery){
     $.ajax({
       url: queryURL,
       method: 'GET'
-      dataType: "json",
+      //dataType: "json",
     })
     //once that data gets back console.log it for viewing 
     .done(function(response) {
-
     	//see what matches up 
            console.log(response.data);
-           var gifResults = JSON.parse(json_text);
+			//var gifResults = response.data.images.original.url;
+			//console.log(gifResults);           
 
 /*	//store the info from the AJAX request in another results variable 
+      	var gifResults = JSON.parse(json_text);
       	var gifResults = response.data;
 
       	//loop through the returned results
       	for (var i=0; i< gifResults.length; i++){
-		
 		//check to see if the image's rating is SFW 
             if (results[i].rating !== "r" && results[i].rating !== "pg-13"){ 
 			  	//Creating and storing a new div tag
@@ -118,7 +117,8 @@ function getGifs(searchQuery){
             	var animalImage = $("<img>");
             	
             	// Setting the src attribute of the image to a property pulled off the result item
-            	animalImage.attr("src", gifResults[i].images.fixed_height.url);
+            	//https://developers.giphy.com/docs/
+            	animalImage.attr("src", gifResults[i].images.original.url);
 
              // Appending the paragraph and image tag to the animalDiv
             	animalDiv.append(p);
