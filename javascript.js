@@ -48,8 +48,8 @@ function displayButtons() {
         //sets a variable called button and button element
         var button = $("<button>");
         button.addClass("btn");
-        //add the gif class to the new buttons
-        button.addClass("gif");
+        //add the gif class to the new buttons-- I WANT TO ADD THIS TO IMAGES NOT THE BUTTONS HERE
+        //button.addClass("gif");
         //add the unqiue id to each animal in the array (should be it's text value)
         button.attr("id", topicsArray[i]);
         //provides the button's text info for the animal 
@@ -154,7 +154,7 @@ function displayAnimalgifs() {
             displayButtons();
         });
 
-        //allow the new buttons with the class of "gif" to move when still etc. 
+        //allow the new gif images with the class of "gif" to move when still etc. 
         $(".gif").on("click", function() {
             // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
             var state = $(this).attr("data-state");
