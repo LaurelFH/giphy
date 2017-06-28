@@ -31,8 +31,9 @@ var animalInput = "";
 //the button value (submit) for the submit button 
 var addAnimalButton = "";
 
-var queryURL = "https://api.giphy.com/v1/gifs/search?&q="; 
 var apiKey = "&api_key=dc6zaTOxFJmzC&limit=10";
+var queryURL = "https://api.giphy.com/v1/gifs/search?&q="; 
+
 
 
 //FUNCTION NAMES 
@@ -98,6 +99,7 @@ function getGifs(searchQuery) {
             url: queryURL,
             method: 'GET'
             })
+
         //once that data gets back console.log it for viewing 
         .done(function(response) {
             //see what matches up 
@@ -144,12 +146,15 @@ function getGifs(searchQuery) {
         //add that new animal to the current animal array
         //alert("addNewAnimal"); 
         addNewAnimal();
-
-        getGifs();  
+       
         //make the buttons appear for animals in the array
         displayButtons();
     });
+    //animalInput id?
 
+    $(".btn").on("click", function(animalInput));
+
+//doubel check that the getGifs is coming from the new animal buttons (button)
 
     //limit API search to 10 gifs per search 
     // Example queryURL for Giphy API
