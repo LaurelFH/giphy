@@ -29,7 +29,7 @@ body{
 
 #animalForm{
 
-	border: red 5px solid;
+	/*border: red 5px solid;*/
 	/*background-color: #FFD1AA;*/
 	color: gray;
 	text-align: center;
@@ -39,7 +39,7 @@ body{
 
 #animalDisplay{
 
-	border: blue 5px solid;
+	/*border: blue 5px solid;*/
 	background-color: #D49A6A
 
 
@@ -47,7 +47,7 @@ body{
 
 #animalButtons{
 
-	border: yellow 5px solid;
+	/*border: yellow 5px solid;*/
 	text-align: center;
 }
 

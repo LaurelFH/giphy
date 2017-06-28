@@ -82,11 +82,10 @@ function displayAnimalgifs() {
     //or use prepend, or html?
     animalDisplay.prepend();
 
-}
 
 //STILL HAVE TROUBLE GETTING THE AJAX CALL TO WORK-- CAN GET THE JSON FILE, BUT THE INFO ISN'T QUITE MATCHING (CAN'T CONSOLE.LOG ETC)
 //this function will grab 10 static gif from the giphy api 
-function getGifs(searchQuery) {
+/*function getGifs(searchQuery) {
       //test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
     //make an ajax request via the url above 
 
@@ -130,9 +129,9 @@ function getGifs(searchQuery) {
                     animalDiv.append(animalImage);
                     $("#animalDisplay").prepend(animalDiv);
                 }
-            }
+            }*/
         
-        });}
+        }
 
     //CALLING FUNCTIONS AND EVENTS HERE!!!!
     //ready the page
@@ -150,11 +149,14 @@ function getGifs(searchQuery) {
         //make the buttons appear for animals in the array
         displayButtons();
     });
-    //animalInput id?
 
-    $(".btn").on("click", function(animalInput));
 
-//doubel check that the getGifs is coming from the new animal buttons (button)
+//TASKS LEFT TO DO:  
+
+
+//  $(".btn").on("click", function(animalInput));
+
+//double check that the getGifs is coming from the new animal buttons (button)
 
     //limit API search to 10 gifs per search 
     // Example queryURL for Giphy API
