@@ -32,7 +32,7 @@ var animalInput = "";
 var addAnimalButton = "";
 
 var apiKey = "&api_key=dc6zaTOxFJmzC&limit=10";
-var queryURL = "//api.giphy.com/v1/gifs/search?&q=";
+var queryURL = "https://api.giphy.com/v1/gifs/search?&q=";
 
 
 
@@ -55,11 +55,11 @@ function displayButtons() {
         //provides the button's text info for the animal 
         button.text(topicsArray[i]);
         //add the "name" data info here etc!!! this is a string 
-        button.attr("data-name", topicsArray[i]);
+        //button.attr("data-name", topicsArray[i]);
         //add the event to the button 
         button.on("click", function(event) {
             //https://stackoverflow.com/questions/48239/getting-the-id-of-the-element-that-fired-an-event
-            //getGifs(event.target.id);
+            getGifs(event.target.id);
             //alert(event.target.id);
         });
         //adds the button element to the div that contains all of the animal buttons
@@ -81,101 +81,106 @@ function addNewAnimal() {
 
 
 //this function will add the gifs from the API to the display area on the page
-function displayAnimalgifs() {
-    //or use prepend, or html?
-    animalDisplay.prepend();
-}
+// function displayAnimalgifs() {
+//     //or use prepend, or html?
+//     animalDisplay.prepend();
+// }
 
     //STILL HAVE TROUBLE GETTING THE AJAX CALL TO WORK-- CAN GET THE JSON FILE, BUT THE INFO ISN'T QUITE MATCHING (CAN'T CONSOLE.LOG ETC)
     //this function will grab 10 static gif from the giphy api 
-    // function getGifs(searchQuery) {
-    //     //test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
-    //     //make an ajax request via the url above 
-    //     //add the "name" data info here etc!!! this is a string 
+function getGifs(searchQuery) {
+ 	//test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
+ 	//make an ajax request via the url above 
+    //add the "name" data info here etc!!! this is a string 
+    $("#animalDisplay").empty();
+    //var name = $(this).attr("data-name");
+    //var gifResults = queryURL + name + apiKey;
+    //calling the search API from giphy       
+    
+    $.ajax({
+        url: (queryURL + searchQuery + apiKey),
+        method: "GET"
+    }).done(function(response) {
+	    //see what matches up 
+	    console.log(response);
 
-    //     $("#animalDisplay").empty();
-    //     var name = $(this).attr("data-name");
-    //     //var gifResults = queryURL + name + apiKey;
-    //     //calling the search API from giphy       
-    //     $.ajax({
-    //             url: (queryURL + name + apiKey),
-    //             method: 'GET'
-    //         })
+	    //loop through the returned results
+	    for (var i = 0; i < response.data.length; i++) {
 
-    //         //once that data gets back console.log it for viewing 
-    //         .done(function(response) {
-    //                 //see what matches up 
-    //                 console.log(response);
+	    	//check to see if the image's rating is SFW 
+	    	if (response.data[i].rating !== "r" && response.data[i].rating !== "pg-13") {
 
-    //                 //loop through the returned results
-    //                 for (var i = 0; i < response.length; i++) {
+	    	    //Creating and storing a new div tag for the ratings etc.
+	   		     var animalDiv = $("<div class='item'>");
+	   		     var rating = response.data[i].rating;
 
-    //                     //check to see if the image's rating is SFW 
-    //                     if (response[i].rating !== "r" && response[i].rating !== "pg-13") {
+	    	    // Creating a paragraph tag with the result item's rating
+	     		var p = $("<p>").text("Rating: " + rating);
 
-    //                         //Creating and storing a new div tag for the ratings etc.
-    //                         var animalDiv = $("<div class='item'>");
-    //                         var rating = response[i].rating;
+	     	   	// Creating and storing an image tag for the gif image
+	     	   	var animalImage = $("<img>");
 
-    //                         // Creating a paragraph tag with the result item's rating
-    //                         var p = $("<p>").text("Rating: " + rating);
+	   		    // Setting the src attribute of the image to a property pulled off the result item
+	    	    //https://developers.giphy.com/docs/
+	      	  	animalImage.attr("src", response.data[i].images.original.url);
+	      	  	animalImage.addClass("gif");
+	      	  	// Appending the paragraph with the rating and image tag to the animalDiv
+	     	   	animalDiv.append(p);
+	     	   	animalDiv.append(animalImage);
+	        	$("#animalDisplay").prepend(animalDiv);
+	        } //ends the if 
+	    } //ends the for loop
+    }); //ends the .done
 
-    //                         // Creating and storing an image tag for the gif image
-    //                         var animalImage = $("<img>");
+    animateGifs();
 
-    //                         // Setting the src attribute of the image to a property pulled off the result item
-    //                         //https://developers.giphy.com/docs/
-    //                         animalImage.attr("src", response[i].images.fixed_height_still.url);
+    
+} //ends the getGifs function 
 
-    //                         // Appending the paragraph with the rating and image tag to the animalDiv
-    //                         animalDiv.append(p);
-    //                         animalDiv.append(animalImage);
-    //                         $("#animalDisplay").prepend(animalDiv);
-    //                     } //ends the if 
-    //                 } //ends the for loop
 
-    //             } //ends the .done
-    //         }; //ends the getGifs function 
+//CALLING FUNCTIONS AND EVENTS HERE!!!!
+//ready the page
+$(document).ready(
+	displayButtons()
+	);
+//when the addAnimal button is clicked then do the following:
 
-        //CALLING FUNCTIONS AND EVENTS HERE!!!!
-        //ready the page
-        $(document).ready(displayButtons());
-        //when the addAnimal button is clicked then do the following:
+$("#addAnimalButton").on("click", function(event) {
+    //keep the submit button from trying to fully submit the form here
+    event.preventDefault();
+    //save the new animal info from the animalInput box
+    //add that new animal to the current animal array
+    //alert("addNewAnimal"); 
+    addNewAnimal();
 
-        $("#addAnimalButton").on("click", function(event) {
-            //keep the submit button from trying to fully submit the form here
-            event.preventDefault();
-            //save the new animal info from the animalInput box
-            //add that new animal to the current animal array
-            //alert("addNewAnimal"); 
-            addNewAnimal();
+    //make the buttons appear for animals in the array
+    displayButtons();
+});
 
-            //make the buttons appear for animals in the array
-            displayButtons();
-        });
+//switch the state to original_still.url to see if that works!!!
+function animateGifs(){
+	//allow the new gif images with the class of "gif" to move when still etc. 
+	$(".gif").on("click", function() {
+	// The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+	var state = $(this).attr("data-state");
+	// If the clicked image's state is still, update its src attribute to what its data-animate value is.
+	// Then, set the image's data-state to animate
+	// Else set src to the data-still value
+	if (state === "still") {
+	    $(this).attr("src", $(this).attr("data-animate"));
+	    $(this).attr("data-state", "animate");
+	} else {
+	    $(this).attr("src", $(this).attr("data-still"));
+	    $(this).attr("data-state", "still");
+	}
+	});
+}
 
-        //allow the new gif images with the class of "gif" to move when still etc. 
-        $(".gif").on("click", function() {
-            // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-            var state = $(this).attr("data-state");
-            // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-            // Then, set the image's data-state to animate
-            // Else set src to the data-still value
-            if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-            } else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-            }
-        });
+
 
 
         //TASKS LEFT TO DO:  
-        //1. fix broken API search error 401; potential solutions to try:
-        //https://stackoverflow.com/questions/42575181/unable-to-call-giphy-api?rq=1
-        //
-        //2.double check the animta/still states
+        //1. Fix the originla and original_still animations 
         // 
         //
         //
