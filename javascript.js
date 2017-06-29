@@ -167,11 +167,11 @@ function animateGifs(){
 	// Then, set the image's data-state to animate
 	// Else set src to the data-still value
 	if (state === "still") {
-	    $(this).attr("src", $(this).attr("data-animate"));
-	    $(this).attr("data-state", "animate");
+	    $(this).attr("src", $(this).attr("original"));
+	    $(this).attr("data-state", "original");
 	} else {
-	    $(this).attr("src", $(this).attr("data-still"));
-	    $(this).attr("data-state", "still");
+	    $(this).attr("src", $(this).attr("original_still"));
+	    $(this).attr("data-state", "original_still");
 	}
 	});
 }
