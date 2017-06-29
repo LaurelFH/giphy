@@ -86,7 +86,7 @@ function addNewAnimal() {
 //     animalDisplay.prepend();
 // }
 
-    //STILL HAVE TROUBLE GETTING THE AJAX CALL TO WORK-- CAN GET THE JSON FILE, BUT THE INFO ISN'T QUITE MATCHING (CAN'T CONSOLE.LOG ETC)
+    //FIXED: STILL HAVE TROUBLE GETTING THE AJAX CALL TO WORK-- CAN GET THE JSON FILE, BUT THE INFO ISN'T QUITE MATCHING (CAN'T CONSOLE.LOG ETC)
     //this function will grab 10 static gif from the giphy api 
 function getGifs(searchQuery) {
  	//test the link in the browser? limit this to 10! url+q+searchterm+api public key+ limits on responses
@@ -110,19 +110,21 @@ function getGifs(searchQuery) {
 	    	//check to see if the image's rating is SFW 
 	    	if (response.data[i].rating !== "r" && response.data[i].rating !== "pg-13") {
 
-	    	    //Creating and storing a new div tag for the ratings etc.
+	    	    //Creating and storing a new div tag for the ratings etc. similar to item class from Bootstrap carousel
+                //https://www.w3schools.com/bootstrap/bootstrap_carousel.asp 
 	   		     var animalDiv = $("<div class='item'>");
 	   		     var rating = response.data[i].rating;
 
 	    	    // Creating a paragraph tag with the result item's rating
 	     		var p = $("<p>").text("Rating: " + rating);
 
-	     	   	// Creating and storing an image tag for the gif image
+	     	   	// Creating and storing an image tag for the gif image;
 	     	   	var animalImage = $("<img>");
 
 	   		    // Setting the src attribute of the image to a property pulled off the result item
 	    	    //https://developers.giphy.com/docs/
 	      	  	animalImage.attr("src", response.data[i].images.original.url);
+                //may need to addClass(img-responsive to be able to move these?)
 	      	  	animalImage.addClass("gif");
 	      	  	// Appending the paragraph with the rating and image tag to the animalDiv
 	     	   	animalDiv.append(p);
@@ -177,11 +179,9 @@ function animateGifs(){
 }
 
 
-
-
         //TASKS LEFT TO DO:  
-        //1. Fix the originla and original_still animations 
-        // 
+        //1. Fix the original and original_still animations 
+        // 2. Fix the wonky div layout-- make the images more responsive? with img-responsive (like the thumbnail?)
         //
         //
         //
